@@ -56,6 +56,11 @@
 
     new Child((new Lightsaber()));
 
+    /**
+     * Lightsavers are dependencyInjections ;)
+     * @see https://de.wikipedia.org/wiki/Dependency_Injection
+     * @constructor
+     */
     function Lightsaber() {
         var name = 'Ligthsaber';
 
@@ -67,7 +72,5 @@
             console.log(name + ' off!');
         }
     }
-
-    Lightsaber.prototype = {}
 
 </script>
