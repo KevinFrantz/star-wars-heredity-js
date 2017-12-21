@@ -34,12 +34,14 @@
     };
 
     /**
-     * Initialize the attributes ot the father
+     * Initialize the attributes of the father
      * @constructor
      */
     function Child(dependencyInjection) {
         Father.call(this);
+        this.generateChildname();
         console.log("I'm a child! My name is " + this.child_name);
+        console.log("I'm a child! My name is " + this.child_name_alias);
         console.log("Father: " + this.father_name);
         dependencyInjection.on();
         dependencyInjection.off();
@@ -51,7 +53,12 @@
      */
     Child.prototype = {
         prototype: Father,
-        child_name: "Luke Skywalker"
+        first_name: 'Luce',
+        last_name: 'Skywalker',
+        child_name_alias: this.first_name + ' ' + this.last_name + ' alias "A New Hope" ', //Doesn't work here to use this;
+        generateChildname: function () {
+            this.child_name = this.first_name + this.last_name;
+        }
     };
 
     new Child((new Lightsaber()));
