@@ -1,0 +1,73 @@
+<!--
+    Example JS heredity and dependency injection
+    @author kf
+    @since  2017-12-21
+    Written as an example for
+    @see http://neuewerte.de
+-->
+<script>
+    /**
+     * Everybody inherit from him
+     * @constructor
+     */
+    function God() {
+        this.god_name = 'God';
+    }
+
+    /**
+     * The sun of god
+     * @constructor
+     */
+    function Father() {
+        console.log('I\'m your father! My name is ' + this.father_name); //Will not work! Attribute is not defined yet.
+        this.father_name = 'Anakin Skywalker';
+        console.log("Child: " + this.child_name);
+        console.log("Father" + this.god_name); //Because God.call.(this) is missing the attribute doesn't exist yet
+    }
+
+    /**
+     * Define god as parent
+     * @type {{Father: God}}
+     */
+    Father.prototype = {
+        Father: God
+    };
+
+    /**
+     * Initialize the attributes ot the father
+     * @constructor
+     */
+    function Child(dependencyInjection) {
+        Father.call(this);
+        console.log("I'm a child! My name is " + this.child_name);
+        console.log("Father: " + this.father_name);
+        dependencyInjection.on();
+        dependencyInjection.off();
+    }
+
+    /**
+     * define god as parent and the attributes of the child
+     * @type {{prototype: Father, child_name: string}}
+     */
+    Child.prototype = {
+        prototype: Father,
+        child_name: "Luke Skywalker"
+    };
+
+    new Child((new Lightsaber()));
+
+    function Lightsaber() {
+        var name = 'Ligthsaber';
+
+        this.on = function () {
+            console.log(name + ' on!');
+        };
+
+        this.off = function () {
+            console.log(name + ' off!');
+        }
+    }
+
+    Lightsaber.prototype = {}
+
+</script>
